@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Beer Catalog</title>
+    <script type='text/javascript' src='https://code.jquery.com/jquery-3.1.1.js'></script>
+    <script type='text/javascript' src='beer.js'></script>
+    <script type='text/javascript'>
+    $(document).ready(function() {
+      initBeerUI("http://microcks/rest/Beer%20Catalog%20API/0.9", { "user-key": "<YOUR USER KEY HERE>" });
+    });
+    </script>
+    <link rel="stylesheet" type="text/css" href="beer.css">
+  </head>
+  <body>
+    <img src="https://brew.sh/img/homebrew-256x256.png" />
+    <h1>BEER CATALOG</h1>
+    <ul class="catalog">
+    </ul>
+  </body>
+</html>
