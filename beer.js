@@ -1,9 +1,9 @@
-var flags = { "Belgium": "🇧🇪", "Germany": "🇩🇪" };
-var baseURL = "http://beer-catalog.staging.app.itix.fr/rest/Beer%20Catalog%20API/0.9"
-
-function initBeerUI(baseURL, headers) {
+define(function(require, exports, module) {
+module.exports = function () {
+  var flags = require("flags.js");
+  var config = require("config.js");
   $.ajax({
-    "url": baseURL + "/beer?page=0",
+    "url": config.baseURL + "/beer?page=0" + (config.extraQueryStringSuffix != null ? "&" + config.extraQueryStringSuffix : ""),
     "success": function (data, status, xhr) {
       try {
         var count = data.length;
@@ -24,6 +24,7 @@ function initBeerUI(baseURL, headers) {
         console.log(e);
       }
     },
-    "headers": headers
+    "headers": config.additionalHeaders != null ? config.additionalHeaders : {}
   });
-}
+};
+});

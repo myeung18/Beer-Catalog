@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <title>Beer Catalog</title>
     <script type='text/javascript' src='https://code.jquery.com/jquery-3.1.1.js'></script>
-    <script type='text/javascript' src='beer.js'></script>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.5/require.js'></script>
     <script type='text/javascript'>
-    $(document).ready(function() {
-      initBeerUI("http://microcks/rest/Beer%20Catalog%20API/0.9", { "user-key": "<YOUR USER KEY HERE>" });
+    require(['beer'], function (initBeerUI) {
+      $(document).ready(function() {
+        initBeerUI();
+      });
     });
     </script>
     <link rel="stylesheet" type="text/css" href="beer.css">
