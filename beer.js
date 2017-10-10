@@ -2,6 +2,9 @@ define(function(require, exports, module) {
 module.exports = function () {
   var flags = require("flags.js");
   var config = require("config.js");
+  $(".error,.catalog").toggleClass("hidden", true);
+  $(".throbber").toggleClass("hidden", false);
+  $(".catalog ul").empty();
   $.ajax({
     "url": config.baseURL + "/beer?page=0" + (config.extraQueryStringSuffix != null ? "&" + config.extraQueryStringSuffix : ""),
     "success": function (data, status, xhr) {
@@ -18,11 +21,26 @@ module.exports = function () {
                    .text(data[i].name)
                    .prepend($("<span>").text(flag).toggleClass("flag"))
                    .append($("<span>").text(rating).toggleClass("rating"))
-                   .appendTo($(".catalog"));
+                   .appendTo($(".catalog ul"));
         }
+
+        $(".catalog").toggleClass("hidden", false);
+        $(".throbber").toggleClass("hidden", true);
       } catch (e) {
         console.log(e);
+        $("#error_message").text(e.message);
+        $(".error").toggleClass("hidden", false);
+        $(".throbber").toggleClass("hidden", true);
       }
+    },
+    "error": function (xhr, status, error) {
+      if (xhr.status == "403") {
+        $("#error_message").text("API Quota reached !");
+      } else {
+        $("#error_message").text("Sorry ! HTTP Status Code " + xhr.status);
+      }
+      $(".error").toggleClass("hidden", false);
+      $(".throbber").toggleClass("hidden", true);
     },
     "headers": config.additionalHeaders != null ? config.additionalHeaders : {}
   });
